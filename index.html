@@ -11,56 +11,23 @@
     <div id="app">
       <div class="nav-bar"></div>
 
-      <div class="cart">Cart({{ cart }})</div>
-      
-      <div class="product-display">
-        <div class="product-container">
-          <div class="product-image">
-            <img :src="image" alt="" :class="{ 'out-of-stock-img': !inStock}">
-            <br>
-            <a :href="url">More Pictures</a>
-          </div>
-          <div class="product-info">
-            <h1>{{ title }}</h1>
-            <p v-if="onSale">{{ isOnSale }}</p>
-            <p v-if="inventory > 10">In Stock</p>
-            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out</p>
-            <p v-else>Out of Stock</p>
+      <div class="cart">Cart({{ cart.length }})</div>
 
-            <ul>
-              <li v-for="detail in details">{{ detail }} </li>
-            </ul>
-
-            <div class="color-circle" 
-            v-for="(variant, index) in variants" 
-            :key="variant.id"
-            @mouseover="updateVariant(index)"
-            :style="{ backgroundColor: variant.color}"
-            >  </div>
-
-            <ul>
-              <li v-for="size in sizes">Size: {{ size }}</li>
-            </ul>
-          </div>
-
-          <button 
-          class="button" 
-          :class="{disabledButton: inventory <= 0 }" 
-          :disabled="!inStock" 
-          @click="addToCart">
-          Add to Cart</button>
-
-
-          <button 
-          class="button" 
-          :class="{disabledButton: inventory <= 0 }" 
-          :disabled="!inStock" 
-          @click="removeFromCart">
-          Remove from Cart</button>
-        </div>
-      </div>
+      <product-display
+        :premium="premium"
+        @add-to-cart="updateCart"
+        @remove-from-cart="removeFromCart"
+      >
+      </product-display>
     </div>
-    </div>
+    <!-- IMPORT APP -->
     <script src="./main.js"></script>
+    <!-- IMPORT COMPONENTS -->
+    <script src="./components/ProductDisplay.js"></script>
+    <script src="./components/ProductDetails.js"></script>
+
+    <script>
+      const mountedApp = app.mount("#app");
+    </script>
   </body>
 </html>
