@@ -52,6 +52,9 @@ app.component("product-display", {
           Remove from Cart</button>
           </div>
       </div>
+
+      <review-list :reviews="reviews" v-if="reviews.length"></review-list>
+      <review-form @review-submitted="addReview"></review-form>
     </div>
     `,
 
@@ -79,6 +82,7 @@ app.component("product-display", {
         },
       ],
       sizes: [7, 7.5, 8, 8.5],
+      reviews: [],
     };
   },
 
@@ -91,6 +95,9 @@ app.component("product-display", {
     },
     updateVariant(index) {
       this.selectedVariant = index;
+    },
+    addReview(review) {
+      this.reviews.push(review);
     },
   },
 
